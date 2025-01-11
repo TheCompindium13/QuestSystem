@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "GameFramework/Character.h"
 #include "DefaultEnemy.generated.h"
 
 UCLASS()
-class QUESTSYSTEM_API ADefaultEnemy : public AActor
+class QUESTSYSTEM_API ADefaultEnemy : public ACharacter
 {
 	GENERATED_BODY()
 	
@@ -19,8 +19,24 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable)
+	void TakeDamage(float _damage);
+
+	UFUNCTION(BlueprintCallable)
+	void Die();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void NotifyDeath();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enemy)
+	float health;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enemy)
+	bool hasTakenDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enemy)
+	bool isDead;
 };

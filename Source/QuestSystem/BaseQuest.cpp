@@ -20,7 +20,7 @@ void UBaseQuest::SetQuestDetails(FString _name, FString _description)
 	description = _description;
 }
 
-void UBaseQuest::SetUpObjective(int _objectiveNum, ADefaultEnemy* _enemy, ADefaultItem* _item, FString _description, int _numRequired)
+void UBaseQuest::SetUpObjective(int _objectiveNum, TSubclassOf<ADefaultEnemy> _enemy, TSubclassOf <ADefaultItem> _item, FString _description1, FString _description2, int _numRequired)
 {
 	if (_objectiveNum < objectives.Num())
 	{
@@ -34,12 +34,61 @@ void UBaseQuest::SetUpObjective(int _objectiveNum, ADefaultEnemy* _enemy, ADefau
 			objectives[_objectiveNum].clearType = EClearCondition::E_Collect;
 			objectives[_objectiveNum].itemToCollect = _item;
 		}
-		objectives[_objectiveNum].description = _description;
+		objectives[_objectiveNum].ObjectiveID = _objectiveNum;
 		objectives[_objectiveNum].numRequired = _numRequired;
+
+		//Create the complete description of the objective.
+		objectives[_objectiveNum].description.Append(_description1 + " ");
+		objectives[_objectiveNum].description.AppendInt(_numRequired);
+		objectives[_objectiveNum].description.Append(" " + _description2);
 	}
 }
 
 void UBaseQuest::SetNumObjectives(int _numObjectives)
 {
-	objectives.SetNum(_numObjectives)
+	objectives.SetNum(_numObjectives);
+}
+
+void UBaseQuest::UpdateQuest()
+{
+}
+
+void UBaseQuest::UpdateObjective(int _objectiveNum, int _updateValue)
+{
+	if (_objectiveNum < objectives.Num())
+	{
+		objectives[_objectiveNum].numRequired -= _updateValue;
+
+		UE_LOG(LogTemp, Warning, TEXT("You Need To Perform That Action %d More Times."), objectives[_objectiveNum].numRequired);
+
+		if (objectives[_objectiveNum].numRequired <= 0)
+		{
+			FinishObjective(_objectiveNum);
+		}
+	}
+}
+
+void UBaseQuest::FinishObjective(int _objectiveNum)
+{
+	if (_objectiveNum < objectives.Num())
+	{
+		objectives[_objectiveNum].IsComplete = true;
+		int numFinished = 0;
+		for (int i = 0; i < objectives.Num(); ++i)
+		{
+			if (objectives[i].IsComplete)
+			{
+				++numFinished;
+			}
+		}
+
+		if (numFinished >= objectives.Num())
+		{
+			FinishQuest();
+		}
+	}
+}
+
+void UBaseQuest::FinishQuest()
+{
 }

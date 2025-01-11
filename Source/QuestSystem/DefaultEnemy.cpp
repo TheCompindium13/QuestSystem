@@ -25,3 +25,23 @@ void ADefaultEnemy::Tick(float DeltaTime)
 
 }
 
+void ADefaultEnemy::TakeDamage(float _damage)
+{
+	health -= _damage;
+
+	if (health <= 0.0f)
+	{
+		Die();
+	}
+	else
+	{
+		hasTakenDamage = true;
+	}
+}
+
+void ADefaultEnemy::Die()
+{
+	isDead = true;
+	NotifyDeath();
+}
+

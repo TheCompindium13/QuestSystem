@@ -54,16 +54,22 @@ public:
 	EClearCondition clearType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ADefaultEnemy* enemyToSlay;
+	TSubclassOf<ADefaultEnemy> enemyToSlay;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ADefaultItem* itemToCollect;
+	TSubclassOf <ADefaultItem> itemToCollect;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString description;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int ObjectiveID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int numRequired;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool IsComplete;
 	
 };
 UCLASS(BlueprintType)
@@ -79,10 +85,22 @@ public:
 	void SetQuestDetails(FString _name, FString _description);
 	
 	UFUNCTION(BlueprintCallable)
-	void SetUpObjective(int _objectiveNum, ADefaultEnemy* _enemy, ADefaultItem* _item, FString _description, int _numRequired);
+	void SetUpObjective(int _objectiveNum, TSubclassOf<ADefaultEnemy> _enemy, TSubclassOf <ADefaultItem> _item, FString _description1, FString _description2, int _numRequired);
 
 	UFUNCTION(BlueprintCallable)
 	void SetNumObjectives(int _numeObjectives);
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateQuest();
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateObjective(int _objectiveNum, int _updateValue);
+
+	UFUNCTION(BlueprintCallable)
+	void FinishObjective(int _objectiveNum);
+
+	UFUNCTION(BlueprintCallable)
+	void FinishQuest();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString name;
