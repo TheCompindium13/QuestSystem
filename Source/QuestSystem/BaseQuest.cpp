@@ -46,7 +46,7 @@ void UBaseQuest::SetUpObjective(int _objectiveNum, TSubclassOf<ADefaultEnemy> _e
 
 void UBaseQuest::SetNumObjectives(int _numObjectives)
 {
-	objectives.SetNum(_numObjectives);
+	objectives.SetNum(_numObjectives) ; 
 }
 
 void UBaseQuest::UpdateQuest()

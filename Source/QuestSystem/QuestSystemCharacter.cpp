@@ -16,6 +16,16 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 //////////////////////////////////////////////////////////////////////////
 // AQuestSystemCharacter
 
+void AQuestSystemCharacter::StartPunch()
+{
+	SET_WARN_COLOR(COLOR_GREEN);
+	UE_LOG(LogTemplateCharacter, Warning, TEXT("Punch"), *GetNameSafe(this));
+	hasPunched = true;
+	CLEAR_WARN_COLOR();
+}
+
+
+
 AQuestSystemCharacter::AQuestSystemCharacter()
 {
 	// Set size for collision capsule
@@ -25,7 +35,7 @@ AQuestSystemCharacter::AQuestSystemCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
-
+	hasPunched = false;
 	// Configure character movement
 	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...	
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f); // ...at this rotation rate
@@ -83,6 +93,10 @@ void AQuestSystemCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AQuestSystemCharacter::Move);
+
+		// Attacking
+		EnhancedInputComponent->BindAction(PunchAction, ETriggerEvent::Triggered, this, &AQuestSystemCharacter::StartPunch);
+
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AQuestSystemCharacter::Look);
