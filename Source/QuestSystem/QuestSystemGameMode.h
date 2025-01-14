@@ -13,6 +13,13 @@ class AQuestSystemGameMode : public AGameModeBase
 
 public:
 	AQuestSystemGameMode();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateObjectiveHUD(int _objectiveNum);
+	UFUNCTION(BlueprintImplementableEvent)
+	void HideObjective(int _objectiveNum);
+	UFUNCTION(BlueprintImplementableEvent)
+	void HideQuest();
 };
 
 
