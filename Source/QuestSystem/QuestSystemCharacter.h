@@ -62,7 +62,24 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
-			
+
+	UFUNCTION(BlueprintCallable)
+	void TakeDamage(float _damage);
+
+	UFUNCTION(BlueprintCallable)
+	void Die();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void NotifyDeath();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enemy)
+	float health;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enemy)
+	bool hasTakenDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enemy)
+	bool isDead;
 
 protected:
 	// APawn interface

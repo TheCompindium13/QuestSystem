@@ -94,6 +94,10 @@ public:
 	void UpdateQuest();
 
 	UFUNCTION(BlueprintCallable)
+
+	void UpdateObjectiveDescription(FString& _description, int _numRequired);
+
+	UFUNCTION(BlueprintCallable)
 	void UpdateObjective(int _objectiveNum, int _updateValue);
 
 	UFUNCTION(BlueprintCallable)

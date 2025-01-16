@@ -18,6 +18,8 @@ void ADefaultItem::BeginPlay()
 	
 }
 
+
+
 // Called every frame
 void ADefaultItem::Tick(float DeltaTime)
 {

@@ -14,13 +14,26 @@ class QUESTSYSTEM_API ADefaultItem : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ADefaultItem();
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	//The Weight of The Item
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float weight;
+
+	//The Name of The Item
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString name;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void NotifyCollected();
+
+
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+
 
 };

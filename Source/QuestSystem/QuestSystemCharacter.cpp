@@ -142,3 +142,23 @@ void AQuestSystemCharacter::Look(const FInputActionValue& Value)
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
 }
+
+void AQuestSystemCharacter::TakeDamage(float _damage)
+{
+	health -= _damage;
+
+	if (health <= 0.0f)
+	{
+		Die();
+	}
+	else
+	{
+		hasTakenDamage = true;
+	}
+}
+
+void AQuestSystemCharacter::Die()
+{
+	isDead = true;
+	NotifyDeath();
+}

@@ -2,7 +2,7 @@
 
 
 #include "BaseQuest.h"
-
+#include "QuestSystemGameMode.h"
 UBaseQuest::UBaseQuest()
 {
 	// Set the default values for variables 
@@ -38,9 +38,9 @@ void UBaseQuest::SetUpObjective(int _objectiveNum, TSubclassOf<ADefaultEnemy> _e
 		objectives[_objectiveNum].numRequired = _numRequired;
 
 		//Create the complete description of the objective.
-		objectives[_objectiveNum].description.Append(_description1 + " ");
+		objectives[_objectiveNum].description.Append(_description1 + "<NR>");
 		objectives[_objectiveNum].description.AppendInt(_numRequired);
-		objectives[_objectiveNum].description.Append(" " + _description2);
+		objectives[_objectiveNum].description.Append("<NR> " + _description2);
 	}
 }
 
@@ -52,7 +52,19 @@ void UBaseQuest::SetNumObjectives(int _numObjectives)
 void UBaseQuest::UpdateQuest()
 {
 }
+void UBaseQuest::UpdateObjectiveDescription(FString& _description, int _numRequired)
+{
+	FString firstString;
+	FString secondString;
+	FString updatedNum;
+	updatedNum.AppendInt(_numRequired);
 
+	_description.Split("<NR>", &firstString, &secondString);
+	secondString = secondString.Replace(*secondString.Left(secondString.Find("<NR>")), *updatedNum);
+	_description.Append("<NR>").Append(secondString);
+	
+
+}
 void UBaseQuest::UpdateObjective(int _objectiveNum, int _updateValue)
 {
 	if (_objectiveNum < objectives.Num())
@@ -72,7 +84,13 @@ void UBaseQuest::FinishObjective(int _objectiveNum)
 {
 	if (_objectiveNum < objectives.Num())
 	{
+		UE_LOG(LogTemp, Warning, TEXT("You have Completed Objective %d"),_objectiveNum);
 		objectives[_objectiveNum].IsComplete = true;
+
+		if (auto gameModeRef = Cast<AQuestSystemGameMode>(GetOuter()))
+		{
+			gameModeRef->HideObjective(_objectiveNum);
+		}
 		int numFinished = 0;
 		for (int i = 0; i < objectives.Num(); ++i)
 		{
@@ -91,4 +109,10 @@ void UBaseQuest::FinishObjective(int _objectiveNum)
 
 void UBaseQuest::FinishQuest()
 {
+	UE_LOG(LogTemp, Warning, TEXT("You Have completed Quest: %d."), *name);
+
+	if (auto gameModeRef = Cast<AQuestSystemGameMode>(GetOuter()))
+	{
+		gameModeRef->HideQuest();
+	}
 }
