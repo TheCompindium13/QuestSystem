@@ -87,7 +87,7 @@ void UBaseQuest::FinishObjective(int _objectiveNum)
 		UE_LOG(LogTemp, Warning, TEXT("You have Completed Objective %d"),_objectiveNum);
 		objectives[_objectiveNum].IsComplete = true;
 
-		if (auto gameModeRef = Cast<AQuestSystemGameMode>(GetOuter()))
+		if (AQuestSystemGameMode *gameModeRef = Cast<AQuestSystemGameMode>(GetOuter()))
 		{
 			gameModeRef->HideObjective(_objectiveNum);
 		}
@@ -111,7 +111,7 @@ void UBaseQuest::FinishQuest()
 {
 	UE_LOG(LogTemp, Warning, TEXT("You Have completed Quest: %d."), *name);
 
-	if (auto gameModeRef = Cast<AQuestSystemGameMode>(GetOuter()))
+	if (AQuestSystemGameMode *gameModeRef = Cast<AQuestSystemGameMode>(GetOuter()))
 	{
 		gameModeRef->HideQuest();
 	}
