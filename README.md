@@ -85,7 +85,7 @@ The code is organized into modular components for easy extension and maintenance
 ## Installation
 1. Clone or download this repository:
    ```bash
-   git clone https://github.com/YourUsername/QuestSystem.git
+   git clone https://github.com/TheCompindium13/QuestSystem.git
    ```
 2. Open your Unreal Engine project.
 3. Add the Quest System files to your project’s `Source` folder.
