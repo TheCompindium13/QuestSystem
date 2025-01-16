@@ -110,6 +110,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 For questions or suggestions, please reach out:
-- **Email**: yourname@example.com
-- **GitHub**: [YourUsername](https://github.com/YourUsername)
+- **Email**: Haidonmcosse@gmail.com
+- **GitHub**: [TheCompindium13](https://github.com/TheCompindium13)
 
